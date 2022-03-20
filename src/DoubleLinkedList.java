@@ -334,30 +334,14 @@ public class DoubleLinkedList<E> extends AbstractSequentialList<E>{
         return valueRemoved;
     }
 
-    /**
-     * method removes first occurrence of specified element within the list if it is present
-     * @param chosenObject
-     * @return true if contained element, false otherwise
-     */
-    public boolean remove(Object chosenObject) {
-        Node<E> current = head.nextNode;
-        Node<E> previous = head;
-        if(head == null) {
-            return false;
-        }
-        while (current != null) {
-            if(current.nodeData == chosenObject) {
-                previous.nextNode = current.nextNode;
-                current = null;
-                size--;
-                return true;
-            } else {
-                previous = current;
-                current = current.nextNode;
-            }
-        }
-        return false;
-    }
+//    /**
+//     * method removes first occurrence of specified element within the list if it is present
+//     * @param chosenObject
+//     * @return true if contained element, false otherwise
+//     */
+//    public boolean remove(Object chosenObject) {
+//
+//    }
 
     /**
      * stores reference to element at that index position
