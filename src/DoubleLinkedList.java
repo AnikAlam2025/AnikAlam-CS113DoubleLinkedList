@@ -218,10 +218,10 @@ public class DoubleLinkedList<E> extends AbstractSequentialList<E>{
     /**
      * method adds the object or piece of data at the given index before the node currently referenced by the iterator
      * @param index
-     * @param object
+     * @param element
      */
-    public void add(int index, E object) {
-        listIterator(index).add(object);
+    public void add(int index, E element) {
+        listIterator(index).add(element);
     }
 
     /**
@@ -246,14 +246,25 @@ public class DoubleLinkedList<E> extends AbstractSequentialList<E>{
         }
     }
 
-    /**
-     * method returns true if object exists and there has an index location, false otherwise which would return -1
-     * @param object
-     * @return
-     */
-    public boolean contains(Object object) {
-        return indexOf(object) != -1;
-    }
+//    /**
+//     * method returns true if object exists, false otherwise which would return -1
+//     * @param object
+//     * @return
+//     */
+//    public boolean contains(Object object) {
+//        Node<E> current = head;
+//        if (head == null) {
+//            throw new NullPointerException();
+//        }
+//        while (current != null) {
+//            if(current.nodeData == object) {
+//                return true;
+//            } else {
+//                current = current.nextNode;
+//            }
+//        }
+//        return false;
+//    }
 
     /**
      * method iterates through list to find node at specific index
@@ -281,8 +292,19 @@ public class DoubleLinkedList<E> extends AbstractSequentialList<E>{
         return placeHolderNode.nodeData;
     }
 
-//    public int indexOf(Object obj) {
-//        return indexOf(obj);
+//    public int indexOf(Object object) {
+//        int index = 0;
+//        Node<E> current = head;
+//
+//        while(current != null) {
+//            if(current.equals(object)) {
+//                return index;
+//            } else {
+//                index++;
+//                current = current.nextNode;
+//            }
+//        }
+//        return -1;
 //    }
 
 //    public int lastIndexOf(Object o) {
@@ -292,14 +314,6 @@ public class DoubleLinkedList<E> extends AbstractSequentialList<E>{
     public boolean isEmpty() {
         topOfStackRef = head;
         return topOfStackRef == null;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public int size() {
-        return size;
     }
 
     /**
@@ -318,6 +332,55 @@ public class DoubleLinkedList<E> extends AbstractSequentialList<E>{
             throw new IndexOutOfBoundsException();
         }
         return valueRemoved;
+    }
+
+    /**
+     * method removes first occurrence of specified element within the list if it is present
+     * @param chosenObject
+     * @return true if contained element, false otherwise
+     */
+    public boolean remove(Object chosenObject) {
+        Node<E> current = head.nextNode;
+        Node<E> previous = head;
+        if(head == null) {
+            return false;
+        }
+        while (current != null) {
+            if(current.nodeData == chosenObject) {
+                previous.nextNode = current.nextNode;
+                current = null;
+                size--;
+                return true;
+            } else {
+                previous = current;
+                current = current.nextNode;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * stores reference to element at that index position
+     * @param index
+     * @param element
+     * @return data at that index position
+     */
+    public E set(int index, E element) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException(Integer.toString(index));
+        }
+        Node<E> node = getNode(index);
+        E result = node.nodeData;
+        node.nodeData = element;
+        return result;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public int size() {
+        return size;
     }
 
     /**
